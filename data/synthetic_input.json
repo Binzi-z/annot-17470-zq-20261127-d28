@@ -1,0 +1,107 @@
+{
+  "synthetic": true,
+  "description": "回拨日两版名单：本地挂钟文本相同、fold 不同；含联合覆盖、别名换根、显式拒绝、晚到撤销、重叠与空区间。",
+  "zone": {
+    "name": "合成夏令时区",
+    "origin": "2026-01-01T00:00:00Z",
+    "initial_offset_minutes": 0,
+    "rules": [
+      {"at_utc": "2026-03-29T01:00:00Z", "offset_minutes": 60},
+      {"at_utc": "2026-11-01T01:00:00Z", "offset_minutes": 0}
+    ]
+  },
+  "records": [
+    {"id": "V1-A0", "version": "v1", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-ALPHA",
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V1-B0", "version": "v1", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-BETA",
+     "signers": [{"alias": "beta", "generation": 0}]},
+    {"id": "V1-C0", "version": "v1", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-GAMMA",
+     "signers": [{"alias": "gamma", "generation": 0}]},
+
+    {"id": "V2-A0", "version": "v2", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-ALPHA",
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-B0", "version": "v2", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-BETA",
+     "signers": [{"alias": "beta", "generation": 0}]},
+    {"id": "V2-B1", "version": "v2", "group": "ID", "kind": "re_root",
+     "at": "2026-11-01T02:30:00Z", "root": "ROOT-DELTA",
+     "signers": [{"alias": "beta", "generation": 1}]},
+    {"id": "V2-C0", "version": "v2", "group": "ID", "kind": "anchor",
+     "at": "2026-10-01T00:00:00Z", "root": "ROOT-GAMMA",
+     "signers": [{"alias": "gamma", "generation": 0}]},
+    {"id": "V2-C1", "version": "v2", "group": "ID", "kind": "re_root",
+     "at": "2026-11-01T07:15:00Z", "root": "ROOT-GAMMA",
+     "signers": [{"alias": "gamma", "generation": 1}]},
+
+    {"id": "V1-SHIFT-A-G1", "version": "v1", "group": "shift-A", "kind": "grant",
+     "local_start": "2026-11-01T01:00", "local_end": "2026-11-01T01:30",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V2-SHIFT-A-G1", "version": "v2", "group": "shift-A", "kind": "grant",
+     "local_start": "2026-11-01T01:00", "local_end": "2026-11-01T01:30",
+     "fold": 1,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V1-SHIFT-B-G1", "version": "v1", "group": "shift-B", "kind": "grant",
+     "local_start": "2026-11-01T00:30", "local_end": "2026-11-01T04:00",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V2-SHIFT-B-G1", "version": "v2", "group": "shift-B", "kind": "grant",
+     "local_start": "2026-11-01T00:30", "local_end": "2026-11-01T04:00",
+     "fold": 0,
+     "signers": [
+       {"alias": "alpha", "generation": 0},
+       {"alias": "beta", "generation": 0}
+     ]},
+    {"id": "V2-SHIFT-B-G2", "version": "v2", "group": "shift-B", "kind": "grant",
+     "local_start": "2026-11-01T01:10", "local_end": "2026-11-01T03:30",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-SHIFT-B-D1", "version": "v2", "group": "shift-B", "kind": "deny",
+     "local_start": "2026-11-01T00:45", "local_end": "2026-11-01T00:55",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-SHIFT-B-X1", "version": "v2", "group": "shift-B", "kind": "revoke",
+     "at": "2026-11-01T01:30:00Z", "target": "V2-SHIFT-B-G2",
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V1-SHIFT-C-G1", "version": "v1", "group": "shift-C", "kind": "grant",
+     "local_start": "2026-11-01T05:00", "local_end": "2026-11-01T06:00",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-SHIFT-C-G1", "version": "v2", "group": "shift-C", "kind": "grant",
+     "local_start": "2026-11-01T05:00", "local_end": "2026-11-01T06:00",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-SHIFT-C-D1", "version": "v2", "group": "shift-C", "kind": "deny",
+     "local_start": "2026-11-01T05:00", "local_end": "2026-11-01T06:00",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V2-SHIFT-D-G1", "version": "v2", "group": "shift-D", "kind": "grant",
+     "local_start": "2026-11-01T07:00", "local_end": "2026-11-01T08:00",
+     "fold": 0,
+     "signers": [
+       {"alias": "alpha", "generation": 0},
+       {"alias": "gamma", "generation": 0}
+     ]},
+    {"id": "V2-SHIFT-D-G2", "version": "v2", "group": "shift-D", "kind": "grant",
+     "local_start": "2026-11-01T07:30", "local_end": "2026-11-01T08:30",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+
+    {"id": "V2-SHIFT-E-G1", "version": "v2", "group": "shift-E", "kind": "grant",
+     "local_start": "2026-11-01T03:00", "local_end": "2026-11-01T05:00",
+     "fold": 0,
+     "signers": [{"alias": "alpha", "generation": 0}]},
+    {"id": "V2-SHIFT-E-X1", "version": "v2", "group": "shift-E", "kind": "revoke",
+     "at": "2026-11-01T03:30:00Z", "target": "V2-SHIFT-E-G1",
+     "signers": [{"alias": "alpha", "generation": 0}]}
+  ]
+}
